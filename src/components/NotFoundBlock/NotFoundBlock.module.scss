@@ -1,0 +1,41 @@
+.root {
+  padding: 100px 100px 200px 100px;
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+
+  @media (max-width: 414px) {
+    padding: 50px 50px 100px 50px;
+  }
+
+  h1 {
+    @media (max-width: 740px) {
+      font-size: 32px;
+    }
+    @media (max-width: 414px) {
+      font-size: 22px;
+    }
+
+    span {
+      font-size: 64px;
+
+      @media (max-width: 740px) {
+        font-size: 46px;
+      }
+      @media (max-width: 414px) {
+        font-size: 36px;
+      }
+    }
+  }
+}
+
+.description {
+  font-size: 22px;
+
+  @media (max-width: 740px) {
+    font-size: 18px;
+  }
+  @media (max-width: 414px) {
+    font-size: 16px;
+  }
+}

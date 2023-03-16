@@ -1,0 +1,40 @@
+.week {
+  border-bottom: 2px solid #2a5c5d;
+  padding-bottom: 20px;
+  @media (max-width: 1425px) {
+    width: 100%;
+    overflow-y: auto;
+  }
+  ul {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      border: 2px solid #2a5c5d;
+      border-radius: 40px;
+      padding: 15px;
+      margin-right: 20px;
+      text-align: center;
+      cursor: pointer;
+      color: #2a5c5d;
+      font-weight: 600;
+      white-space: nowrap;
+      @media (max-width: 500px) {
+        font-size: 12px;
+      }
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #2a5c5d;
+        color: #fff;
+      }
+    }
+  }
+}

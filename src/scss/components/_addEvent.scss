@@ -1,0 +1,121 @@
+.content {
+  display: flex;
+  justify-content: center;
+
+  .add-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border: 5px solid #2a5c5d;
+    border-radius: 28px;
+
+    h2 {
+      margin-bottom: 50px;
+      color: #2a5c5d;
+      white-space: nowrap;
+      @media (max-width: 654px) {
+        font-size: 22px;
+      }
+      @media (max-width: 412px) {
+        font-size: 18px;
+      }
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      label,
+      p {
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      input,
+      select {
+        width: 400px;
+        height: 50px;
+        border-radius: 20px;
+        border: 3px solid #2a5c5d;
+        padding: 10px;
+        margin-bottom: 30px;
+        cursor: pointer;
+        @media (max-width: 654px) {
+          width: 250px;
+          margin-bottom: 25px;
+        }
+      }
+
+      textarea {
+        min-width: 525px;
+        max-width: 525px;
+        min-height: 300px;
+        border-radius: 20px;
+        border: 3px solid #2a5c5d;
+        padding: 10px;
+        margin-bottom: 30px;
+        @media (max-width: 654px) {
+          min-width: 270px;
+          max-width: 270px;
+          min-height: 400px;
+        }
+      }
+
+      button {
+        background-color: #2a5c5d;
+        color: #fff;
+        font-weight: 600;
+        width: 200px;
+        height: 50px;
+        border: #2a5c5d;
+        border-radius: 28px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+}
+
+.invisible {
+  visibility: hidden;
+
+  &__statusSuccessfull,
+  &__statusError {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  &__statusSuccessfull {
+    background-color: #2a5c5d;
+  }
+
+  &__statusError {
+    background-color: red;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    span {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.event {
+  position: relative;
+  margin-top: 20px;
+  border-bottom: 3px solid #2a5c5d;
+  margin-bottom: 40px;
+
+  h3 {
+    color: #2a5c5d;
+    cursor: pointer;
+  }
+
+  &__date {
+    color: red;
+    font-weight: 600;
+    margin: 10px 0 20px 0;
+  }
+
+  &__publicationDate {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #2a5c5d;
+    font-weight: 600;
+  }
+}

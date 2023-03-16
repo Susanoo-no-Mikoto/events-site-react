@@ -1,0 +1,123 @@
+.main__content {
+  display: flex;
+  justify-content: center;
+  min-height: 650px;
+
+  .registration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border: 5px solid #2a5c5d;
+    border-radius: 28px;
+
+    h2 {
+      margin-bottom: 50px;
+      color: #2a5c5d;
+      white-space: nowrap;
+      @media (max-width: 654px) {
+        font-size: 22px;
+      }
+      @media (max-width: 412px) {
+        font-size: 18px;
+      }
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      input,
+      select {
+        width: 400px;
+        height: 50px;
+        border-radius: 20px;
+        border: 3px solid #2a5c5d;
+        padding: 10px;
+        margin-bottom: 30px;
+        @media (max-width: 654px) {
+          width: 250px;
+        }
+
+        &:focus {
+          border: 3px solid #2a5c5db3;
+        }
+      }
+
+      select {
+        cursor: pointer;
+      }
+
+      button {
+        background-color: #2a5c5d;
+        color: #fff;
+        font-weight: 600;
+        width: 200px;
+        height: 50px;
+        border: #2a5c5d;
+        border-radius: 28px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+
+      &__pass {
+        position: relative;
+
+        &__eye {
+          position: absolute;
+          top: 15%;
+          right: 10px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.statusSuccessfull,
+.statusError {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 200px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.statusSuccessfull {
+  background-color: #2a5c5d;
+}
+
+.statusError {
+  background-color: red;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+
+  span {
+    cursor: pointer;
+  }
+}

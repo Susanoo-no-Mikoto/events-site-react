@@ -1,0 +1,30 @@
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.events {
+  min-height: 600px;
+}
+
+.error-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px 0 200px 0;
+}
+
+.nothing-found {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0 200px;
+
+  p {
+    font-size: 26px;
+    font-weight: 600;
+  }
+}

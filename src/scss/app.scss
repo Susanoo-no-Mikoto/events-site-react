@@ -1,0 +1,44 @@
+@import './components/all';
+@import './libs/normalize';
+
+.wrapper {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1296px;
+  padding: 0 12px;
+  margin: 0 auto;
+  @media (max-width: 1425px) {
+    max-width: 900px;
+  }
+  @media (max-width: 1030px) {
+    max-width: 700px;
+  }
+  @media (max-width: 830px) {
+    max-width: 500px;
+  }
+  @media (max-width: 630px) {
+    max-width: 350px;
+  }
+}
+
+.main {
+  margin-bottom: 100px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  @media (max-width: 800px) {
+    font-size: 32px;
+  }
+  @media (max-width: 500px) {
+    font-size: 22px;
+  }
+  @media (max-width: 350px) {
+    font-size: 18px;
+  }
+}

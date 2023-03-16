@@ -1,0 +1,44 @@
+.selectDate {
+  @media (max-width: 600px) {
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  form {
+    align-items: center;
+  }
+
+  input {
+    width: 200px;
+    border: 2px solid #2a5c5d;
+    color: #2a5c5d;
+    border-radius: 20px;
+    padding: 5px;
+    margin-right: 15px;
+
+    &:focus {
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  button {
+    width: 100px;
+    height: 30px;
+    background-color: #2a5c5d;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

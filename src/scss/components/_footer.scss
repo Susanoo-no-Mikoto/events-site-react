@@ -1,0 +1,43 @@
+.footer {
+  margin-top: auto;
+  background-color: #285758;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  color: #fff;
+
+  p,
+  a {
+    color: #fff;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+
+    &__logo {
+      margin-right: 20px;
+      img {
+        width: 219px;
+        height: 125px;
+        margin-bottom: 24px;
+      }
+      div {
+        margin-bottom: 16px;
+      }
+    }
+
+    &__contacts {
+      div {
+        margin-bottom: 16px;
+      }
+
+      &__email {
+        margin-bottom: 24px;
+      }
+    }
+
+    @media (max-width: 637px) {
+      flex-direction: column;
+    }
+  }
+}

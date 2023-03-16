@@ -1,0 +1,34 @@
+.fullEvent {
+  min-height: 650px;
+  &__h2 {
+    margin-bottom: 20px;
+  }
+
+  &__dateEvent {
+    color: red;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  &__description {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  &__contactInfo {
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  &__publicationDate {
+    color: #2a5c5d;
+    font-weight: 600;
+  }
+}
+
+.loading {
+  text-align: center;
+  font-size: 46px;
+  font-weight: 600;
+}

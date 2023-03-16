@@ -1,0 +1,38 @@
+.types {
+  margin: 20px 0 40px 0;
+  @media (max-width: 900px) {
+    width: 100%;
+    overflow-y: auto;
+  }
+
+  ul {
+    display: flex;
+
+    li {
+      background-color: #f9f9f9;
+      white-space: nowrap;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      @media (max-width: 500px) {
+        font-size: 12px;
+      }
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #2a5c5d;
+        color: #fff;
+      }
+    }
+  }
+}
