@@ -14,12 +14,14 @@ const AddEvent: FC = () => {
   const addEventDB = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { nameEvent, selectType, description, dateEvent } = e.target as typeof e.target & {
-      nameEvent: { value: string };
-      selectType: { value: string };
-      description: { value: string };
-      dateEvent: { value: string };
-    };
+    const { nameEvent, selectType, description, dateEvent, linkEvent } =
+      e.target as typeof e.target & {
+        nameEvent: { value: string };
+        selectType: { value: string };
+        description: { value: string };
+        dateEvent: { value: string };
+        linkEvent: { value: string };
+      };
 
     const currentDate = new Date();
     const Year = currentDate.getFullYear();
@@ -36,6 +38,7 @@ const AddEvent: FC = () => {
       date: dateEvent.value.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1'),
       publicationDate: Day + '-' + fMonth[Month] + '-' + Year,
       whoPublished: currentUser.user.surname + ' ' + currentUser.user.name,
+      link: linkEvent.value,
     };
 
     await axios
@@ -100,6 +103,8 @@ const AddEvent: FC = () => {
             <textarea name="description" placeholder="Описание..." required></textarea>
             <label htmlFor="date-event">Дата мероприятия</label>
             <input type="date" id="date-event" name="dateEvent" required />
+            <label htmlFor="link-event">Ссылка</label>
+            <input type="text" id="link-event" name="linkEvent" />
             <button>Отправить</button>
           </form>
         </div>

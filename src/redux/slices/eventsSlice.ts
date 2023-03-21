@@ -25,6 +25,7 @@ export interface IEventsState {
     date: string;
     publicationDate: string;
     whoPublished: string;
+    link: string;
     id: number;
   }[];
   status: string;

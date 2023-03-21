@@ -18,7 +18,20 @@
 
   &__contactInfo {
     font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    font-weight: 600;
     margin-bottom: 30px;
+
+    a {
+      color: #2a5c5d;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 
   &__publicationDate {

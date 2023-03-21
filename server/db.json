@@ -25,6 +25,7 @@
       "date": "03-04-2023",
       "publicationDate": "06-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 1
     },
     {
@@ -34,6 +35,7 @@
       "date": "05-04-2023",
       "publicationDate": "06-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 2
     },
     {
@@ -43,6 +45,7 @@
       "date": "08-04-2023",
       "publicationDate": "06-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 3
     },
     {
@@ -52,6 +55,7 @@
       "date": "11-04-2023",
       "publicationDate": "06-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 4
     },
     {
@@ -61,6 +65,7 @@
       "date": "14-03-2023",
       "publicationDate": "10-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 5
     },
     {
@@ -70,6 +75,7 @@
       "date": "15-03-2023",
       "publicationDate": "10-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 6
     },
     {
@@ -79,6 +85,7 @@
       "date": "13-03-2023",
       "publicationDate": "13-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 7
     },
     {
@@ -88,6 +95,7 @@
       "date": "13-03-2023",
       "publicationDate": "13-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 8
     },
     {
@@ -97,7 +105,18 @@
       "date": "11-03-2023",
       "publicationDate": "14-03-2023",
       "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
       "id": 9
+    },
+    {
+      "name": "Всероссийская конференция «Проф. стандарты»",
+      "type": 3,
+      "description": "ОУ ВО «Южно-Уральский институт управления и экономики»приглашает к участию в VI Всероссийской научно-практической конференции научных, научно-педагогических работников и аспирантов «Профессиональные стандарты: технологии управления человеческим капиталом и проблемы кадровой политики»\\nУчастниками конференции являются преподаватели, ученые, специалисты и аспиранты российских и зарубежных образовательных организаций высшего и среднего профессионального образования. Оплата проезда и проживания осуществляется за счет направляющей стороны. Для иногородних специалистов и аспирантов допускается заочное участие.",
+      "date": "11-03-2023",
+      "publicationDate": "21-03-2023",
+      "whoPublished": "Фадеев Артём",
+      "link": "https://github.com/Susanoo-no-Mikoto/events-site-react",
+      "id": 10
     }
   ]
 }

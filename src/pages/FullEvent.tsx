@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from '../utils/axios';
 
 const FullEvent: FC = () => {
@@ -9,7 +9,7 @@ const FullEvent: FC = () => {
     date: string;
     publicationDate: string;
     whoPublished: string;
-    links: string;
+    link: string;
   }
 
   const { id } = useParams();
@@ -41,6 +41,10 @@ const FullEvent: FC = () => {
         <div className="fullEvent__dateEvent">Мероприятие состоится: {event.date}</div>
         <div className="fullEvent__description">{event.description}</div>
         <div className="fullEvent__contactInfo">Контактная информация:</div>
+        <div className="fullEvent__link">
+          Подробнее тут: <br />
+          <Link to={event.link}>{event.link}</Link>{' '}
+        </div>
         <div className="fullEvent__publicationDate">
           Опубликовано: {event.publicationDate} - {event.whoPublished}
         </div>
