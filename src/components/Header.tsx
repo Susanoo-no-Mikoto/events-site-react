@@ -118,48 +118,44 @@ const Header: FC = () => {
                       color="#2a5c5d"
                       className="header__nav__wrapper__menu-burger__content__close"
                     />
-
-                    <li onClick={() => setOpenedMenu(false)}>
-                      <Link to="events">Мероприятия</Link>
-                    </li>
-                    <li onClick={() => setOpenedMenu(false)}>
-                      <Link to="add-event">Добавить мероприятие</Link>
-                    </li>
-                    {dataUser?.user.access === 'Admin' && (
-                      <li onClick={() => setOpenedMenu(false)}>
-                        <Link to="registration">Регистрация пользователей</Link>
-                      </li>
+                    <Link to="events">
+                      <li onClick={() => setOpenedMenu(false)}>Мероприятия</li>
+                    </Link>
+                    {(dataUser?.user.access === 'Admin' || dataUser?.user.access === 'Moder') && (
+                      <Link to="add-event">
+                        <li onClick={() => setOpenedMenu(false)}>Добавить мероприятие</li>
+                      </Link>
                     )}
-                    <li onClick={() => setOpenedMenu(false)}>
-                      <Link to="contacts">Контакты</Link>
-                    </li>
+                    {dataUser?.user.access === 'Admin' && (
+                      <Link to="registration">
+                        <li onClick={() => setOpenedMenu(false)}>Регистрация пользователей</li>
+                      </Link>
+                    )}
+                    <Link to="contacts">
+                      <li onClick={() => setOpenedMenu(false)}>Контакты</li>
+                    </Link>
                   </ul>
                 </div>
               )}
             </div>
 
             <ul className="header__nav__wrapper__menu">
-              <li>
-                <Link to="events">Мероприятия</Link>
-              </li>
-              {dataUser?.user.access === 'Moder' && (
-                <li>
-                  <Link to="add-event">Добавить мероприятие</Link>
-                </li>
+              <Link to="events">
+                <li>Мероприятия</li>
+              </Link>
+              {(dataUser?.user.access === 'Moder' || dataUser?.user.access === 'Admin') && (
+                <Link to="add-event">
+                  <li>Добавить мероприятие</li>
+                </Link>
               )}
               {dataUser?.user.access === 'Admin' && (
-                <>
-                  <li>
-                    <Link to="add-event">Добавить мероприятие</Link>
-                  </li>
-                  <li>
-                    <Link to="registration">Регистрация пользователей</Link>
-                  </li>
-                </>
+                <Link to="registration">
+                  <li>Регистрация пользователей</li>
+                </Link>
               )}
-              <li>
-                <Link to="contacts">Контакты</Link>
-              </li>
+              <Link to="contacts">
+                <li>Контакты</li>
+              </Link>
             </ul>
           </div>
         </div>

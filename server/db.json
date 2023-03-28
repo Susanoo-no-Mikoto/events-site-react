@@ -15,6 +15,22 @@
       "surname": "Мухина",
       "access": "Admin",
       "id": 4
+    },
+    {
+      "email": "19400808@live.inueco.ru",
+      "password": "$2a$10$AmcKG.ISG101wk888aucputMdvTSHV3YV.iDUig42eMQDQvK9WaCS",
+      "name": "Первый",
+      "surname": "Первый",
+      "access": "Moder",
+      "id": 5
+    },
+    {
+      "email": "19300576@live.inueco.ru",
+      "password": "$2a$10$1zPjuwuDdjMfrp3kEjjg2O7e3c8f2M00XqRtI8R2CwGIQeRSHTwtu",
+      "name": "Второй",
+      "surname": "Второй",
+      "access": "User",
+      "id": 6
     }
   ],
   "events": [

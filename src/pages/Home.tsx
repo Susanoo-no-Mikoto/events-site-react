@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 //Redux toolkit
 import {
+  fetchEvents,
+  setEvents,
   fetchUpcomingEvents,
-  fetchPastEvents,
-  setUpcomingDateId,
-  setPastDateId,
   setUpcomingDateValue,
+  setUpcomingDateId,
+  fetchPastEvents,
   setPastDateValue,
+  setPastDateId,
   setFilter,
   homeEventsSelector,
 } from '../redux/slices/homeSlice';
@@ -27,6 +29,8 @@ const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const {
+    events,
+    eventsStatus,
     upcomingEvents,
     pastEvents,
     upcomingDateId,
@@ -39,52 +43,24 @@ const Home: FC = () => {
   const isSearch = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
 
-  let nowPlus = new Date();
-  let nowMinus = new Date();
-  let timePlus = nowPlus.getTime();
-  let timeMinus = nowMinus.getTime();
-  nowPlus = new Date(timePlus - (timePlus % 86400000));
-  nowMinus = new Date(timeMinus - (timeMinus % 86400000));
-  const fMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  const days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
-  let pWeek: string[] = [];
-  for (let i = 0; i < 7; i++, nowMinus.setDate(nowMinus.getDate() - 1)) {
-    pWeek.push(
-      nowMinus.getDate() - 1 + '-' + fMonth[nowMinus.getMonth()] + '-' + nowMinus.getFullYear(),
-
-      //  +
-      // ' ' +
-      // days[now.getDay()],
-    );
-  }
-
-  let uWeek: string[] = [];
-  for (let i = 0; i < 7; i++, nowPlus.setDate(nowPlus.getDate() + 1)) {
-    uWeek.push(
-      nowPlus.getDate() + '-' + fMonth[nowPlus.getMonth()] + '-' + nowPlus.getFullYear(),
-      //  +
-      // ' ' +
-      // days[now.getDay()],
-    );
-  }
-
-  const getUpcomingEvents = async () => {
-    const upcomingDate = upcomingDateValue ? `&date=${upcomingDateValue}` : '';
-    dispatch(fetchUpcomingEvents({ upcomingDate }));
-  };
-
-  const getPastEvents = async () => {
-    const pastDate = pastDateValue ? `&date=${pastDateValue}` : '';
-    dispatch(fetchPastEvents({ pastDate }));
-  };
+  useEffect(() => {
+    (async () => {
+      await dispatch(fetchEvents());
+    })();
+    isSearch.current = true;
+    //dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
+    //dispatch(setPastDateValue(getPastDate()[0]));
+    // getUpcomingEvents();
+    // getPastEvents();
+  }, []);
 
   useEffect(() => {
-    dispatch(setUpcomingDateValue(upcomingDateValue));
-  }, [upcomingDateValue]);
-
-  useEffect(() => {
-    dispatch(setPastDateValue(pastDateValue));
-  }, [pastDateValue]);
+    if (!isSearch.current) {
+      dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
+      dispatch(setPastDateValue(getPastDate()[0]));
+    }
+    isSearch.current = false;
+  }, [events]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -102,24 +78,81 @@ const Home: FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
+      console.log(params);
+      dispatch(setUpcomingDateId(params.upcomingDateId));
+      dispatch(setPastDateId(params.pastDateId));
       dispatch(setFilter({ ...params }));
       isSearch.current = true;
     }
   }, []);
 
   useEffect(() => {
-    if (!isSearch.current) {
+    if (upcomingDateValue) {
       getUpcomingEvents();
     }
-    isSearch.current = false;
   }, [upcomingDateValue]);
 
   useEffect(() => {
-    if (!isSearch.current) {
+    if (pastDateValue) {
       getPastEvents();
     }
-    isSearch.current = false;
   }, [pastDateValue]);
+
+  const getDate = () => {
+    let now = new Date();
+    let time = now.getTime();
+    now = new Date(time - (time % 86400000));
+    const fMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    const date = now.getFullYear() + '-' + fMonth[now.getMonth()] + '-' + now.getDate();
+
+    return date;
+  };
+
+  const getUpcomingDate = () => {
+    let dates: string[] = [];
+    for (let i = 0; i < events.length; i++) {
+      if (new Date(getDate()) < new Date(events[i].date.split('-').reverse().join('-'))) {
+        dates.push(events[i].date);
+      }
+    }
+    dates = dates.filter(function (item, pos) {
+      return dates.indexOf(item) == pos;
+    });
+    dates.sort();
+
+    return dates.slice(0, 7);
+  };
+
+  const getPastDate = () => {
+    let dates: string[] = [];
+    for (let i = 0; i < events.length; i++) {
+      if (new Date(getDate()) > new Date(events[i].date.split('-').reverse().join('-'))) {
+        dates.push(events[i].date);
+      }
+    }
+    dates = dates.filter(function (item, pos) {
+      return dates.indexOf(item) == pos;
+    });
+    dates.sort();
+
+    return dates.slice(0, 7);
+  };
+
+  // useEffect(() => {
+  //   dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
+  //   dispatch(setPastDateValue(getPastDate()[0]));
+  // }, [events]);
+
+  const getUpcomingEvents = async () => {
+    const upcomingDate = /*upcomingDateValue
+      ?*/ `&date=${upcomingDateValue}`;
+    /*: `&date=${getUpcomingDate()[0]}`*/ await dispatch(fetchUpcomingEvents({ upcomingDate }));
+  };
+
+  const getPastEvents = async () => {
+    const pastDate = /*pastDateValue ?*/ `&date=${pastDateValue}`; /*: `&date=${getPastDate()[0]}`*/
+    await dispatch(fetchPastEvents({ pastDate }));
+  };
 
   const onChangeUpcomingDateValue = (item: string, id: number) => {
     dispatch(setUpcomingDateValue(item));
@@ -148,17 +181,17 @@ const Home: FC = () => {
             <h1>Ближайшие мероприятия</h1>
             <div className="homeEvents">
               <WeekBlock
-                week={uWeek}
+                week={getUpcomingDate()}
                 dateId={upcomingDateId}
                 dateValue={upcomingDateValue}
                 setDateId={onChangeUpcomingDateValue}
               />
               {upcomingStatus === 'loading' ? skeletons : upcomingItems}
-              {!upcomingItems.length && upcomingStatus === 'successful' && (
+              {/* {!upcomingItems.length && upcomingStatus === 'successful' && (
                 <div className="nothing-found">
                   <p>На эту дату нет запланированных мероприятий!😕</p>
                 </div>
-              )}
+              )} */}
             </div>
           </>
         )}
@@ -175,17 +208,17 @@ const Home: FC = () => {
             <h1>Недавно прошедшие</h1>
             <div className="homeEvents">
               <WeekBlock
-                week={pWeek}
+                week={getPastDate()}
                 dateId={pastDateId}
                 dateValue={pastDateValue}
                 setDateId={onChangePastDateValue}
               />
               {pastStatus === 'loading' ? skeletons : pastItems}
-              {!pastItems.length && pastStatus === 'successful' && (
+              {/* {!pastItems.length && pastStatus === 'successful' && (
                 <div className="nothing-found">
                   <p>На эту дату нет заплонированных мероприятий!😕</p>
                 </div>
-              )}
+              )} */}
             </div>
           </>
         )}

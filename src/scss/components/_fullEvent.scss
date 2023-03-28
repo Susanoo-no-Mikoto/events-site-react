@@ -1,7 +1,57 @@
 .fullEvent {
   min-height: 650px;
   &__h2 {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
+
+    input {
+      border: 3px solid #2a5c5d;
+      padding: 12px;
+      width: 300px;
+      height: 50px;
+      border-radius: 15px;
+      font-size: 16px;
+      margin-right: 20px;
+      @media (max-width: 630px) {
+        margin-bottom: 10px;
+        width: 290px;
+        margin-right: 0;
+      }
+
+      &:focus {
+        border: 3px solid #2a5c5db3;
+      }
+    }
+
+    button {
+      background-color: #2a5c5d;
+      color: #fff;
+      font-weight: 600;
+      width: 80px;
+      height: 35px;
+      border: #2a5c5d;
+      border-radius: 28px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+
+    svg {
+      //margin-top: 3px;
+      min-width: 30px;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
   }
 
   &__dateEvent {
@@ -11,9 +61,66 @@
   }
 
   &__description {
-    font-size: 20px;
-    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
+
+    textarea {
+      max-width: 840px;
+      min-width: 840px;
+      min-height: 500px;
+      border-radius: 20px;
+      border: 3px solid #2a5c5d;
+      padding: 10px;
+      margin-bottom: 30px;
+
+      @media (max-width: 1030px) {
+        max-width: 640px;
+        min-width: 640px;
+      }
+      @media (max-width: 830px) {
+        max-width: 440px;
+        min-width: 440px;
+      }
+      @media (max-width: 630px) {
+        max-width: 290px;
+        min-width: 290px;
+        min-height: 800px;
+      }
+    }
+
+    button {
+      background-color: #2a5c5d;
+      color: #fff;
+      font-weight: 600;
+      width: 80px;
+      height: 35px;
+      border: #2a5c5d;
+      border-radius: 28px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+
+    &__content {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    svg {
+      min-width: 30px;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
   }
 
   &__contactInfo {
