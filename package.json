@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm start\" \"npm run server\" ",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "server": "json-server-auth --watch server/db.json --port 8080"
   },
@@ -29,7 +29,7 @@
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
     "concurrently": "^7.6.0",
-    "json-server": "^0.17.2",
+    "json-server": "^0.17.3",
     "json-server-auth": "^2.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"

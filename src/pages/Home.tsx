@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 //Redux toolkit
 import {
   fetchEvents,
-  setEvents,
   fetchUpcomingEvents,
   setUpcomingDateValue,
   setUpcomingDateId,
@@ -48,16 +47,14 @@ const Home: FC = () => {
       await dispatch(fetchEvents());
     })();
     isSearch.current = true;
-    //dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
-    //dispatch(setPastDateValue(getPastDate()[0]));
-    // getUpcomingEvents();
-    // getPastEvents();
   }, []);
 
   useEffect(() => {
     if (!isSearch.current) {
       dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
       dispatch(setPastDateValue(getPastDate()[0]));
+      dispatch(setUpcomingDateId(0));
+      dispatch(setPastDateId(0));
     }
     isSearch.current = false;
   }, [events]);
@@ -138,20 +135,14 @@ const Home: FC = () => {
     return dates.slice(0, 7);
   };
 
-  // useEffect(() => {
-  //   dispatch(setUpcomingDateValue(getUpcomingDate()[0]));
-  //   dispatch(setPastDateValue(getPastDate()[0]));
-  // }, [events]);
-
   const getUpcomingEvents = async () => {
-    const upcomingDate = /*upcomingDateValue
-      ?*/ `&date=${upcomingDateValue}`;
-    /*: `&date=${getUpcomingDate()[0]}`*/ await dispatch(fetchUpcomingEvents({ upcomingDate }));
+    const upcomingDate = `&date=${upcomingDateValue}`;
+    dispatch(fetchUpcomingEvents({ upcomingDate }));
   };
 
   const getPastEvents = async () => {
-    const pastDate = /*pastDateValue ?*/ `&date=${pastDateValue}`; /*: `&date=${getPastDate()[0]}`*/
-    await dispatch(fetchPastEvents({ pastDate }));
+    const pastDate = `&date=${pastDateValue}`;
+    dispatch(fetchPastEvents({ pastDate }));
   };
 
   const onChangeUpcomingDateValue = (item: string, id: number) => {
@@ -187,11 +178,6 @@ const Home: FC = () => {
                 setDateId={onChangeUpcomingDateValue}
               />
               {upcomingStatus === 'loading' ? skeletons : upcomingItems}
-              {/* {!upcomingItems.length && upcomingStatus === 'successful' && (
-                <div className="nothing-found">
-                  <p>На эту дату нет запланированных мероприятий!😕</p>
-                </div>
-              )} */}
             </div>
           </>
         )}
@@ -214,11 +200,6 @@ const Home: FC = () => {
                 setDateId={onChangePastDateValue}
               />
               {pastStatus === 'loading' ? skeletons : pastItems}
-              {/* {!pastItems.length && pastStatus === 'successful' && (
-                <div className="nothing-found">
-                  <p>На эту дату нет заплонированных мероприятий!😕</p>
-                </div>
-              )} */}
             </div>
           </>
         )}
