@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from '../../utils/axios';
+import { useNavigate } from 'react-router-dom';
 
 //Redux toolkit
 import { loginSelector, setLoginOpened, setUser } from '../../redux/slices/loginSlice';
@@ -12,10 +13,12 @@ import styles from './LoginForm.module.scss';
 import { AiOutlineClose, AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //types
+import { AppDispatch } from '../../redux/store';
 import type { FormEvent } from 'react';
 
 const LoginForm: FC = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { loginOpened } = useSelector(loginSelector);
   const [checkPass, setCheckPass] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -31,6 +34,7 @@ const LoginForm: FC = () => {
 
   const onClose = () => {
     dispatch(setLoginOpened(false));
+    setError(false);
   };
 
   const loginUser = async (e: FormEvent<HTMLFormElement>) => {
@@ -54,6 +58,7 @@ const LoginForm: FC = () => {
         const target = e.target as HTMLFormElement;
         target.reset();
         onClose();
+        navigate('/');
       })
       .catch((err) => {
         setError(true);

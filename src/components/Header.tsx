@@ -1,5 +1,5 @@
 import { FC, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 //Redux toolkit
@@ -11,6 +11,9 @@ import LoginForm from './LoginForm';
 //logo
 import logo from '../assets/img/logo_dark.png';
 
+//types
+import { AppDispatch } from '../redux/store';
+
 //icons
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { FaUserCircle } from 'react-icons/fa';
@@ -18,7 +21,8 @@ import { MdOutlineVerifiedUser } from 'react-icons/md';
 import { AiOutlineUnorderedList, AiOutlineClose } from 'react-icons/ai';
 
 const Header: FC = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { dataUser } = useSelector(loginSelector);
   const [openedMenu, setOpenedMenu] = useState<boolean>(false);
   const [openedProfile, setOpenedProfile] = useState<boolean>(false);
@@ -48,6 +52,7 @@ const Header: FC = () => {
   const logOutUser = () => {
     dispatch(setUser(null));
     localStorage.removeItem('dataUser');
+    navigate('/');
   };
 
   return (

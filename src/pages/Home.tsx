@@ -75,7 +75,6 @@ const Home: FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
       dispatch(setUpcomingDateId(params.upcomingDateId));
       dispatch(setPastDateId(params.pastDateId));
       dispatch(setFilter({ ...params }));
@@ -115,9 +114,9 @@ const Home: FC = () => {
     dates = dates.filter(function (item, pos) {
       return dates.indexOf(item) == pos;
     });
-    dates.sort();
+    dates.sort().slice(0, 7);
 
-    return dates.slice(0, 7);
+    return dates;
   };
 
   const getPastDate = () => {
@@ -130,9 +129,9 @@ const Home: FC = () => {
     dates = dates.filter(function (item, pos) {
       return dates.indexOf(item) == pos;
     });
-    dates.sort();
+    dates.sort().reverse().slice(0, 7);
 
-    return dates.slice(0, 7);
+    return dates;
   };
 
   const getUpcomingEvents = async () => {
