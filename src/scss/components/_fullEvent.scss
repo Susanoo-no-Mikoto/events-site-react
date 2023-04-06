@@ -65,28 +65,8 @@
     justify-content: space-between;
     margin-bottom: 20px;
 
-    textarea {
-      max-width: 840px;
-      min-width: 840px;
-      min-height: 500px;
-      border-radius: 20px;
-      border: 3px solid #2a5c5d;
-      padding: 10px;
-      margin-bottom: 30px;
-
-      @media (max-width: 1030px) {
-        max-width: 640px;
-        min-width: 640px;
-      }
-      @media (max-width: 830px) {
-        max-width: 440px;
-        min-width: 440px;
-      }
-      @media (max-width: 630px) {
-        max-width: 290px;
-        min-width: 290px;
-        min-height: 800px;
-      }
+    .text-editor {
+      margin-bottom: 20px;
     }
 
     button {
@@ -109,8 +89,10 @@
     }
 
     &__content {
-      font-size: 20px;
-      font-weight: 600;
+      ul,
+      ol {
+        list-style-type: '✔';
+      }
     }
 
     svg {

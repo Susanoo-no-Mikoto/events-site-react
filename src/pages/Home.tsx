@@ -114,7 +114,14 @@ const Home: FC = () => {
     dates = dates.filter(function (item, pos) {
       return dates.indexOf(item) == pos;
     });
-    dates.sort().slice(0, 7);
+
+    dates
+      .sort(function (a, b) {
+        let dateA: any = new Date(a.split('-').reverse().join('-')),
+          dateB: any = new Date(b.split('-').reverse().join('-'));
+        return dateA - dateB;
+      })
+      .slice(0, 7);
 
     return dates;
   };
@@ -129,7 +136,14 @@ const Home: FC = () => {
     dates = dates.filter(function (item, pos) {
       return dates.indexOf(item) == pos;
     });
-    dates.sort().reverse().slice(0, 7);
+    dates
+      .sort(function (a, b) {
+        let dateA: any = new Date(a.split('-').reverse().join('-')),
+          dateB: any = new Date(b.split('-').reverse().join('-'));
+        return dateA - dateB;
+      })
+      .reverse()
+      .slice(0, 7);
 
     return dates;
   };

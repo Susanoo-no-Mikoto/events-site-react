@@ -2,12 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from '../utils/axios';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 //Redux toolkit
-import { setLoginOpened, loginSelector, setUser } from '../redux/slices/loginSlice';
+import { loginSelector } from '../redux/slices/loginSlice';
 
 //types
-import type { ChangeEvent } from 'react';
 import type { FormEvent } from 'react';
 
 //icons
@@ -29,6 +30,17 @@ const FullEvent: FC = () => {
   const [h2Change, setH2Change] = useState<boolean>(false);
   const [descriptionChange, setDescriptionChange] = useState<boolean>(false);
   const [reload, setReload] = useState<boolean>(false);
+  const [textEditor, setTextEditor] = useState('');
+
+  const modules = {
+    toolbar: [
+      [{ header: [3, 4, 5, 6, false] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      ['link'],
+    ],
+  };
 
   useEffect(() => {
     (async () => {
@@ -76,11 +88,7 @@ const FullEvent: FC = () => {
   const fetchDescription = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { description } = e.target as typeof e.target & {
-      description: { value: string };
-    };
-
-    const newDescription = { description: description.value };
+    const newDescription = { description: textEditor };
 
     await axios
       .patch(`events/${id}`, newDescription)
@@ -101,6 +109,7 @@ const FullEvent: FC = () => {
 
   const onClickDescriptionChange = () => {
     setDescriptionChange((prev) => !prev);
+    setTextEditor(event.description);
   };
 
   return (
@@ -124,11 +133,20 @@ const FullEvent: FC = () => {
         <div className="fullEvent__description">
           {descriptionChange ? (
             <form onSubmit={(e) => fetchDescription(e)}>
-              <textarea name="description" defaultValue={event.description}></textarea>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={textEditor}
+                onChange={setTextEditor}
+                className="text-editor"
+              />
+              {/* <textarea name="description" defaultValue={event.description}></textarea> */}
               <button>Готово</button>
             </form>
           ) : (
-            <div className="fullEvent__description__content">{event.description}</div>
+            <div
+              className="ql-editor"
+              dangerouslySetInnerHTML={{ __html: event.description }}></div>
           )}
           {(dataUser?.user.access === 'Admin' || dataUser?.user.access === 'Moder') && (
             <MdModeEditOutline onClick={onClickDescriptionChange} size="30px" color="#2a5c5d" />

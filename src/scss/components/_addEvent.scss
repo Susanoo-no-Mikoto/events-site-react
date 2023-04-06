@@ -50,22 +50,16 @@
         }
       }
 
-      textarea {
-        min-width: 525px;
-        max-width: 525px;
-        min-height: 300px;
-        border-radius: 20px;
-        border: 3px solid #2a5c5d;
-        padding: 10px;
-        margin-bottom: 30px;
+      .text-editor {
+        width: 525px;
+        margin-bottom: 70px;
         @media (max-width: 654px) {
-          min-width: 270px;
-          max-width: 270px;
-          min-height: 400px;
+          width: 270px;
+          margin-bottom: 90px;
         }
       }
 
-      button {
+      .button-submit-form {
         background-color: #2a5c5d;
         color: #fff;
         font-weight: 600;
