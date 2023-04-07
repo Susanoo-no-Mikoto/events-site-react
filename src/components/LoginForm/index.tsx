@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from '../../utils/axios';
-import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 
 //Redux toolkit
