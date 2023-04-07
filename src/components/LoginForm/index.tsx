@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from '../../utils/axios';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 
 //Redux toolkit
@@ -66,13 +67,13 @@ const LoginForm: FC = () => {
       });
   };
 
+  loginOpened ? scrollController.disabledScroll() : scrollController.enableScroll();
+
   return (
     <div
-      onClick={onClose}
-      className={`${styles.overlay} ${loginOpened ? styles.overlayVisible : ''} ${
-        loginOpened ? scrollController.disabledScroll() : scrollController.enableScroll()
-      }`}>
-      <div onClick={(e) => e.stopPropagation()} className={styles.login}>
+      onMouseDown={onClose}
+      className={`${styles.overlay} ${loginOpened ? styles.overlayVisible : ''}`}>
+      <div onMouseDown={(e) => e.stopPropagation()} className={styles.login}>
         <h2 className={styles.login__h2}>
           Вход{' '}
           <AiOutlineClose onClick={onClose} size="2.5rem" className={styles.login__h2__close} />

@@ -28,9 +28,10 @@ const FullEvent: FC = () => {
   const { dataUser } = useSelector(loginSelector);
   const [event, setEvent] = useState<IEvent>();
   const [h2Change, setH2Change] = useState<boolean>(false);
+  const [h2Value, setH2Value] = useState('');
   const [descriptionChange, setDescriptionChange] = useState<boolean>(false);
-  const [reload, setReload] = useState<boolean>(false);
   const [textEditor, setTextEditor] = useState('');
+  const [reload, setReload] = useState<boolean>(false);
 
   const modules = {
     toolbar: [
@@ -47,6 +48,7 @@ const FullEvent: FC = () => {
       try {
         const { data } = await axios.get('/events/' + id);
         setEvent(data);
+        setH2Value(data.name);
       } catch (error) {
         console.error(error);
       }
@@ -105,6 +107,7 @@ const FullEvent: FC = () => {
 
   const onClickH2Change = () => {
     setH2Change((prev) => !prev);
+    setH2Value(event.name);
   };
 
   const onClickDescriptionChange = () => {
@@ -118,7 +121,13 @@ const FullEvent: FC = () => {
         <div className="fullEvent__h2">
           {h2Change ? (
             <form onSubmit={(e) => fetchH2(e)}>
-              <input type="text" name="nameEvent" />
+              <input
+                type="text"
+                value={h2Value}
+                onChange={(e) => setH2Value(e.target.value)}
+                name="nameEvent"
+                required
+              />
               <button>Готово</button>
             </form>
           ) : (
@@ -140,7 +149,6 @@ const FullEvent: FC = () => {
                 onChange={setTextEditor}
                 className="text-editor"
               />
-              {/* <textarea name="description" defaultValue={event.description}></textarea> */}
               <button>Готово</button>
             </form>
           ) : (
