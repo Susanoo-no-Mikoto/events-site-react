@@ -115,15 +115,13 @@ const Home: FC = () => {
       return dates.indexOf(item) == pos;
     });
 
-    dates
-      .sort(function (a, b) {
-        let dateA: any = new Date(a.split('-').reverse().join('-')),
-          dateB: any = new Date(b.split('-').reverse().join('-'));
-        return dateA - dateB;
-      })
-      .slice(0, 6);
+    dates.sort(function (a, b) {
+      let dateA: any = new Date(a.split('-').reverse().join('-')),
+        dateB: any = new Date(b.split('-').reverse().join('-'));
+      return dateA - dateB;
+    });
 
-    return dates;
+    return dates.slice(0, 6);
   };
 
   const getPastDate = () => {
@@ -142,10 +140,9 @@ const Home: FC = () => {
           dateB: any = new Date(b.split('-').reverse().join('-'));
         return dateA - dateB;
       })
-      .reverse()
-      .slice(0, 6);
+      .reverse();
 
-    return dates;
+    return dates.slice(0, 6);
   };
 
   const getUpcomingEvents = async () => {
