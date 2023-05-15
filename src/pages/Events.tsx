@@ -56,7 +56,7 @@ const Events: FC = () => {
 
   // Если был первый рендер, то запрашиваем мероприятия
   useEffect(() => {
-    window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
     if (!isSearch.current) {
       getEvents();
     }

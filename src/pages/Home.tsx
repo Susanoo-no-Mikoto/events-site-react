@@ -121,7 +121,7 @@ const Home: FC = () => {
       return dateA - dateB;
     });
 
-    return dates.slice(0, 6);
+    return dates.slice(0, 7);
   };
 
   const getPastDate = () => {
@@ -142,7 +142,7 @@ const Home: FC = () => {
       })
       .reverse();
 
-    return dates.slice(0, 6);
+    return dates.slice(0, 7);
   };
 
   const getUpcomingEvents = async () => {
