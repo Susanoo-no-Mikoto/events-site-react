@@ -121,7 +121,7 @@ const Home: FC = () => {
           dateB: any = new Date(b.split('-').reverse().join('-'));
         return dateA - dateB;
       })
-      .slice(0, 7);
+      .slice(0, 6);
 
     return dates;
   };
@@ -143,7 +143,7 @@ const Home: FC = () => {
         return dateA - dateB;
       })
       .reverse()
-      .slice(0, 7);
+      .slice(0, 6);
 
     return dates;
   };
