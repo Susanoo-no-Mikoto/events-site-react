@@ -9,6 +9,72 @@
 
 .events {
   min-height: 600px;
+
+  h2 {
+    margin-bottom: 40px;
+  }
+
+  &__arrow-right,
+  &__arrow-left {
+    margin-bottom: 30px;
+  }
+
+  &__arrow-right {
+    display: flex;
+    flex-direction: row-reverse;
+
+    &__item {
+      //width: fit-content;
+      display: flex;
+      align-items: center;
+
+      &:active {
+        transform: translate(0, 2px);
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+      }
+
+      svg,
+      p {
+        color: #2a5c5d;
+        font-weight: 600;
+      }
+
+      svg {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  &__arrow-left {
+    &__item {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+
+      &:active {
+        transform: translate(0, 2px);
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+      }
+
+      svg,
+      p {
+        color: #2a5c5d;
+        font-weight: 600;
+      }
+
+      svg {
+        margin-right: 20px;
+      }
+    }
+  }
 }
 
 .error-info {

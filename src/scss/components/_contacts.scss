@@ -1,3 +1,44 @@
 .contacts {
   min-height: 650px;
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+
+    @media (max-width: 830px) {
+      flex-direction: column;
+    }
+
+    &__items {
+      padding: 10px;
+      @media (max-width: 830px) {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #2a5c5d;
+        border-left: none;
+        border-right: none;
+      }
+
+      &__adress {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      &__e-mail {
+        display: flex;
+
+        p {
+          white-space: nowrap;
+        }
+
+        a {
+          color: #2a5c5d;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
 }

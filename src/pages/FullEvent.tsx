@@ -1,21 +1,24 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from '../utils/axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 //Redux toolkit
 import { loginSelector } from '../redux/slices/loginSlice';
+import { removeEvent } from '..//redux/slices/eventsSlice';
 
 //types
 import type { FormEvent } from 'react';
 
 //icons
 import { MdModeEditOutline } from 'react-icons/md';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
 const FullEvent: FC = () => {
   interface IEvent {
+    id: number;
     name: string;
     description: string;
     date: string;
@@ -25,6 +28,7 @@ const FullEvent: FC = () => {
   }
 
   const { id } = useParams();
+  const dispatch = useDispatch();
   const { dataUser } = useSelector(loginSelector);
   const [event, setEvent] = useState<IEvent>();
   const [h2Change, setH2Change] = useState<boolean>(false);
@@ -105,6 +109,22 @@ const FullEvent: FC = () => {
       });
   };
 
+  const fetchDeleteEvent = async (id: number) => {
+    if (window.confirm('Вы действительно хотите удалить это мероприятие?')) {
+      await axios
+        .delete(`/events/${id}`)
+        .then(() => {
+          dispatch(removeEvent(id));
+          history.back();
+        })
+        .catch((err) => {
+          window.scrollTo(0, 0);
+          alert(err);
+          console.error(err.message);
+        });
+    }
+  };
+
   const onClickH2Change = () => {
     setH2Change((prev) => !prev);
     setH2Value(event.name);
@@ -167,6 +187,10 @@ const FullEvent: FC = () => {
         </div>
         <div className="fullEvent__publicationDate">
           Опубликовано: {event.publicationDate} - {event.whoPublished}
+        </div>
+        <div className="fullEvent__remove-button" onClick={() => fetchDeleteEvent(event.id)}>
+          <p className="fullEvent__remove-button__name">Удалить мероприятие</p>
+          <RiDeleteBinLine size="22px" color="#fff" />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 //Redux toolkit
-import { fetchEvents, eventsSelector } from '../redux/slices/eventsSlice';
+import { fetchEvents, fetchPastEvents, eventsSelector } from '../redux/slices/eventsSlice';
 import { filterSelector, setFilters } from '../redux/slices/filterSlice';
 
 //types
@@ -17,13 +17,18 @@ import TypesBlock from '../components/TypesBlock';
 import Search from '../components/Search';
 import Skeleton from '../components/EventBlock/Skeleton';
 
+//icons
+import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+
 const Events: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { searchValue, typeId, dateValue } = useSelector(filterSelector);
-  const { events, status } = useSelector(eventsSelector);
+  const { events, pastEvents, statusEvents, statusPastEvents } = useSelector(eventsSelector);
   const isSearch = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
+  const [changeList, setChangeList] = useState<boolean>(false);
 
   const getEvents = async () => {
     const search = searchValue ? `&name_like=${searchValue}` : '';
@@ -31,6 +36,7 @@ const Events: FC = () => {
     const date = dateValue ? `&date=${dateValue}` : '';
 
     dispatch(fetchEvents({ search, type, date }));
+    dispatch(fetchPastEvents({ search, type, date }));
   };
 
   // Если изменили параметры и был первый рендер
@@ -63,7 +69,12 @@ const Events: FC = () => {
     isSearch.current = false;
   }, [searchValue, typeId, dateValue]);
 
-  const items = events.map((event) => <EventBlock key={event.id} {...event} />);
+  const onClickArrow = () => {
+    setChangeList((prev) => !prev);
+  };
+
+  const itemsUp = events.map((event) => <EventBlock key={event.id} {...event} />);
+  const itemsPast = pastEvents.map((event) => <EventBlock key={event.id} {...event} />);
   const skeletons = [...new Array(5)].map((_, i) => <Skeleton key={i} />);
 
   return (
@@ -72,23 +83,53 @@ const Events: FC = () => {
         <SelectDate />
         <Search />
       </div>
-      {status === 'error' ? (
+      {statusEvents === 'error' ? (
         <div className="error-info">
           <h1>Произошла ошибка!😕</h1>
           <p>Не удалось получить мероприятия!</p>
         </div>
       ) : (
         <div className="events">
-          <h1>Мероприятия</h1>
+          {/* <h1>Мероприятия</h1> */}
           <TypesBlock />
-
-          <div className="events__list">
-            <>{status === 'loading' ? skeletons : items}</>
+          <div className={!changeList ? 'events__arrow-right' : 'events__arrow-left'}>
+            {!changeList ? (
+              <div className="events__arrow-right__item" onClick={onClickArrow}>
+                <p>Прошедшие</p>
+                <FaArrowRight size="25px" color="#2a5c5d" />
+              </div>
+            ) : (
+              <div className="events__arrow-left__item" onClick={onClickArrow}>
+                <FaArrowLeft size="25px" color="#2a5c5d" />
+                <p>Актуальные</p>
+              </div>
+            )}
           </div>
-          {!events.length && status === 'successful' && (
-            <div className="nothing-found">
-              <p>Ничего не найдено!😕</p>
-            </div>
+
+          {!changeList ? (
+            <>
+              <h2>Актуальные мероприятия</h2>
+              <div className="events__list">
+                <>{statusEvents === 'loading' ? skeletons : itemsUp}</>
+              </div>
+              {!events.length && statusEvents === 'successful' && (
+                <div className="nothing-found">
+                  <p>Ничего не найдено!😕</p>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <h2>Прошедшие мероприятия</h2>
+              <div className="events__list">
+                <>{statusPastEvents === 'loading' ? skeletons : itemsPast}</>
+              </div>
+              {!itemsPast.length && statusPastEvents === 'successful' && (
+                <div className="nothing-found">
+                  <p>Ничего не найдено!😕</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}
