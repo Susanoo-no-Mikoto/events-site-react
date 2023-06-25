@@ -73,8 +73,12 @@ const Events: FC = () => {
     setChangeList((prev) => !prev);
   };
 
-  const itemsUp = events.map((event) => <EventBlock key={event.id} {...event} />);
-  const itemsPast = pastEvents.map((event) => <EventBlock key={event.id} {...event} />);
+  const itemsUp = events.map((event) => (
+    <EventBlock key={event.id} status="events" deleteFun={true} {...event} />
+  ));
+  const itemsPast = pastEvents.map((event) => (
+    <EventBlock key={event.id} status="pastEvents" deleteFun={true} {...event} />
+  ));
   const skeletons = [...new Array(5)].map((_, i) => <Skeleton key={i} />);
 
   return (

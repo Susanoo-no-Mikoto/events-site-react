@@ -188,10 +188,12 @@ const FullEvent: FC = () => {
         <div className="fullEvent__publicationDate">
           Опубликовано: {event.publicationDate} - {event.whoPublished}
         </div>
-        <div className="fullEvent__remove-button" onClick={() => fetchDeleteEvent(event.id)}>
-          <p className="fullEvent__remove-button__name">Удалить мероприятие</p>
-          <RiDeleteBinLine size="22px" color="#fff" />
-        </div>
+        {(dataUser?.user.access === 'Admin' || dataUser?.user.access === 'Moder') && (
+          <div className="fullEvent__remove-button" onClick={() => fetchDeleteEvent(event.id)}>
+            <p className="fullEvent__remove-button__name">Удалить мероприятие</p>
+            <RiDeleteBinLine size="22px" color="#fff" />
+          </div>
+        )}
       </div>
     </div>
   );

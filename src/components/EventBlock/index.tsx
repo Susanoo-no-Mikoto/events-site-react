@@ -5,7 +5,14 @@ import axios from '../../utils/axios';
 
 //Redux toolkit
 import { loginSelector } from '../../redux/slices/loginSlice';
-import { removeEvent } from '../../redux/slices/eventsSlice';
+import { removeEvent, removePastEvent } from '../../redux/slices/eventsSlice';
+import {
+  setUpcomingDateId,
+  setUpcomingDateValue,
+  setPastDateId,
+  setPastDateValue,
+  homeEventsSelector,
+} from '../../redux/slices/homeSlice';
 
 //styles
 import styles from './EventBlock.module.scss';
@@ -20,20 +27,38 @@ interface IEventBlockProps {
   description: string;
   date: string;
   publicationDate: string;
+  status: string;
+  deleteFun: boolean;
 }
 
 //console.log(dataUser);
 
-const EventBlock: FC<IEventBlockProps> = ({ id, name, date, publicationDate }) => {
+const EventBlock: FC<IEventBlockProps> = ({
+  id,
+  name,
+  date,
+  publicationDate,
+  status,
+  deleteFun,
+}) => {
   const dispatch = useDispatch();
   const { dataUser } = useSelector(loginSelector);
+  const { upcomingDateId, pastDateId, upcomingDateValue, pastDateValue } =
+    useSelector(homeEventsSelector);
 
   const fetchDeleteEvent = async (id: number) => {
     if (window.confirm('Вы действительно хотите удалить это мероприятие?')) {
       await axios
         .delete(`/events/${id}`)
         .then(() => {
-          dispatch(removeEvent(id));
+          if ((status = 'events')) {
+            dispatch(removeEvent(id));
+            dispatch(setUpcomingDateId(0));
+          }
+          if ((status = 'pastEvents')) {
+            dispatch(removePastEvent(id));
+            dispatch(setPastDateId(0));
+          }
         })
         .catch((err) => {
           window.scrollTo(0, 0);
@@ -48,7 +73,7 @@ const EventBlock: FC<IEventBlockProps> = ({ id, name, date, publicationDate }) =
       <Link to={`list/${id}`}>
         <h3>{name}</h3>
       </Link>
-      {(dataUser?.user.access === 'Admin' || dataUser?.user.access === 'Moder') && (
+      {(dataUser?.user.access === 'Admin' || dataUser?.user.access === 'Moder') && deleteFun && (
         <RiDeleteBinLine onClick={() => fetchDeleteEvent(id)} size="20px" color="#b00000" />
       )}
       <p className={styles.event__date}>Актуально до: {date}</p>

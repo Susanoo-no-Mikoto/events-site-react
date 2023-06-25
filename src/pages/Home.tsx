@@ -165,8 +165,12 @@ const Home: FC = () => {
     dispatch(setPastDateId(id));
   };
 
-  const upcomingItems = upcomingEvents.map((item) => <EventBlock key={item.id} {...item} />);
-  const pastItems = pastEvents.map((item) => <EventBlock key={item.id} {...item} />);
+  const upcomingItems = upcomingEvents.map((item) => (
+    <EventBlock key={item.id} status="events" deleteFun={false} {...item} />
+  ));
+  const pastItems = pastEvents.map((item) => (
+    <EventBlock key={item.id} status="pastEvents" deleteFun={false} {...item} />
+  ));
   const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
 
   return (

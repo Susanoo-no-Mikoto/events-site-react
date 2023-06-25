@@ -49,7 +49,7 @@ export const fetchEvents = createAsyncThunk(
 
     let events = [];
     for (let i = 0; i < data.length; i++) {
-      if (new Date(getDate()) < new Date(data[i].date.split('-').reverse().join('-'))) {
+      if (new Date(getDate()) <= new Date(data[i].date.split('-').reverse().join('-'))) {
         events.push(data[i]);
       }
     }
@@ -110,8 +110,14 @@ export const eventsSlice = createSlice({
     setEvents(state, action) {
       state.events = action.payload;
     },
+    setPastEvents(state, action) {
+      state.pastEvents = action.payload;
+    },
     removeEvent(state, action) {
       state.events = state.events.filter((item) => item.id !== action.payload);
+    },
+    removePastEvent(state, action) {
+      state.pastEvents = state.pastEvents.filter((item) => item.id !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -147,6 +153,6 @@ export const eventsSlice = createSlice({
 
 export const eventsSelector = (state: RootState) => state.events;
 
-export const { setEvents, removeEvent } = eventsSlice.actions;
+export const { setEvents, setPastEvents, removeEvent, removePastEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;
