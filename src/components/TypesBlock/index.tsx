@@ -14,7 +14,11 @@ import {
 //styles
 import styles from './TypesBlock.module.scss';
 
-const Types: FC = () => {
+interface ITypesProps {
+  paginateReset: () => void;
+}
+
+const Types: FC<ITypesProps> = ({ paginateReset }) => {
   const types = ['Все', 'Вузовские', 'Региональные', 'Всероссийские', 'Международные'];
 
   const dispatch = useDispatch();
@@ -22,6 +26,7 @@ const Types: FC = () => {
 
   const onChangeType = (id: number) => {
     dispatch(setTypeId(id));
+    paginateReset();
   };
 
   const onChangeTypeAll = (id: number) => {
@@ -30,6 +35,7 @@ const Types: FC = () => {
     dispatch(setDateValue(''));
     dispatch(setValue(''));
     dispatch(setInputDateValue(''));
+    paginateReset();
   };
 
   return (

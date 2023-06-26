@@ -16,6 +16,7 @@ import SelectDate from '../components/SelectDate';
 import TypesBlock from '../components/TypesBlock';
 import Search from '../components/Search';
 import Skeleton from '../components/EventBlock/Skeleton';
+import Pagination from '../components/Pagination';
 
 //icons
 import { FaArrowRight } from 'react-icons/fa';
@@ -29,6 +30,9 @@ const Events: FC = () => {
   const isSearch = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
   const [changeList, setChangeList] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPagePastEvents, setCurrentPagePastEvents] = useState<number>(1);
+  const [eventsPerPage] = useState<number>(6);
 
   const getEvents = async () => {
     const search = searchValue ? `&name_like=${searchValue}` : '';
@@ -73,19 +77,37 @@ const Events: FC = () => {
     setChangeList((prev) => !prev);
   };
 
-  const itemsUp = events.map((event) => (
+  const lastEventIndex = currentPage * eventsPerPage;
+  const firstEventIndex = lastEventIndex - eventsPerPage;
+  const currentEvents = events.slice(firstEventIndex, lastEventIndex);
+
+  const lastPastEventIndex = currentPagePastEvents * eventsPerPage;
+  const firstPastEventIndex = lastPastEventIndex - eventsPerPage;
+  const currentPastEvents = pastEvents.slice(firstPastEventIndex, lastPastEventIndex);
+
+  const itemsUp = currentEvents.map((event) => (
     <EventBlock key={event.id} status="events" deleteFun={true} {...event} />
   ));
-  const itemsPast = pastEvents.map((event) => (
+  const itemsPast = currentPastEvents.map((event) => (
     <EventBlock key={event.id} status="pastEvents" deleteFun={true} {...event} />
   ));
   const skeletons = [...new Array(5)].map((_, i) => <Skeleton key={i} />);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginatePastEvents = (pageNumber: number) => setCurrentPagePastEvents(pageNumber);
+  const nextPageEvents = () => setCurrentPage((prev) => prev + 1);
+  const prevPageEvents = () => setCurrentPage((prev) => prev - 1);
+  const nextPagePastEvents = () => setCurrentPagePastEvents((prev) => prev + 1);
+  const prevPagePastEvents = () => setCurrentPagePastEvents((prev) => prev - 1);
+  const paginateReset = () => {
+    setCurrentPage(1);
+    setCurrentPagePastEvents(1);
+  };
 
   return (
     <div className="container">
       <div className="top-content">
-        <SelectDate />
-        <Search />
+        <SelectDate paginateReset={paginateReset} />
+        <Search paginateReset={paginateReset} />
       </div>
       {statusEvents === 'error' ? (
         <div className="error-info">
@@ -95,7 +117,7 @@ const Events: FC = () => {
       ) : (
         <div className="events">
           {/* <h1>Мероприятия</h1> */}
-          <TypesBlock />
+          <TypesBlock paginateReset={paginateReset} />
           <div className={!changeList ? 'events__arrow-right' : 'events__arrow-left'}>
             {!changeList ? (
               <div className="events__arrow-right__item" onClick={onClickArrow}>
@@ -115,11 +137,23 @@ const Events: FC = () => {
               <h2>Актуальные мероприятия</h2>
               <div className="events__list">
                 <>{statusEvents === 'loading' ? skeletons : itemsUp}</>
+                {!events.length && statusEvents === 'successful' && (
+                  <div className="nothing-found">
+                    <p>Ничего не найдено!😕</p>
+                  </div>
+                )}
               </div>
-              {!events.length && statusEvents === 'successful' && (
-                <div className="nothing-found">
-                  <p>Ничего не найдено!😕</p>
-                </div>
+              {Math.ceil(events.length / eventsPerPage) === 1 ? (
+                ''
+              ) : (
+                <Pagination
+                  currentPage={currentPage}
+                  eventsPerPage={eventsPerPage}
+                  totalEvents={events.length}
+                  paginate={paginate}
+                  prevPage={prevPageEvents}
+                  nextPage={nextPageEvents}
+                />
               )}
             </>
           ) : (
@@ -127,11 +161,23 @@ const Events: FC = () => {
               <h2>Прошедшие мероприятия</h2>
               <div className="events__list">
                 <>{statusPastEvents === 'loading' ? skeletons : itemsPast}</>
+                {!itemsPast.length && statusPastEvents === 'successful' && (
+                  <div className="nothing-found">
+                    <p>Ничего не найдено!😕</p>
+                  </div>
+                )}
               </div>
-              {!itemsPast.length && statusPastEvents === 'successful' && (
-                <div className="nothing-found">
-                  <p>Ничего не найдено!😕</p>
-                </div>
+              {Math.ceil(pastEvents.length / eventsPerPage) === 1 ? (
+                ''
+              ) : (
+                <Pagination
+                  currentPage={currentPagePastEvents}
+                  eventsPerPage={eventsPerPage}
+                  totalEvents={pastEvents.length}
+                  paginate={paginatePastEvents}
+                  prevPage={prevPagePastEvents}
+                  nextPage={nextPagePastEvents}
+                />
               )}
             </>
           )}

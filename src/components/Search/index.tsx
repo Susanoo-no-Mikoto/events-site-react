@@ -12,7 +12,11 @@ import styles from './Search.module.scss';
 import { GiMagnifyingGlass } from 'react-icons/gi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-const Search: FC = () => {
+interface ISearchProps {
+  paginateReset: () => void;
+}
+
+const Search: FC<ISearchProps> = ({ paginateReset }) => {
   const dispatch = useDispatch();
   const { value } = useSelector(filterSelector);
   //const [value, setValue] = useState<string>(searchValue);
@@ -27,6 +31,7 @@ const Search: FC = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       dispatch(setSearchValue(str));
+      paginateReset();
     }, 500),
     [],
   );

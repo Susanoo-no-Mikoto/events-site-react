@@ -6,13 +6,7 @@ import axios from '../../utils/axios';
 //Redux toolkit
 import { loginSelector } from '../../redux/slices/loginSlice';
 import { removeEvent, removePastEvent } from '../../redux/slices/eventsSlice';
-import {
-  setUpcomingDateId,
-  setUpcomingDateValue,
-  setPastDateId,
-  setPastDateValue,
-  homeEventsSelector,
-} from '../../redux/slices/homeSlice';
+import { setUpcomingDateId, setPastDateId } from '../../redux/slices/homeSlice';
 
 //styles
 import styles from './EventBlock.module.scss';
@@ -43,8 +37,6 @@ const EventBlock: FC<IEventBlockProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { dataUser } = useSelector(loginSelector);
-  const { upcomingDateId, pastDateId, upcomingDateValue, pastDateValue } =
-    useSelector(homeEventsSelector);
 
   const fetchDeleteEvent = async (id: number) => {
     if (window.confirm('Вы действительно хотите удалить это мероприятие?')) {
